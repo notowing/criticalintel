@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Critical Information</h2>
+  <button onclick="getLocation()">Share My Location</button>
+  <p id="result">Location not requested.</p>
+
+  <script>
+    function getLocation() {
+      if (!navigator.geolocation) {
+        document.getElementById("result").textContent =
+          "Geolocation is not supported by this browser.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const accuracy = position.coords.accuracy;
+
+          document.getElementById("result").textContent =
+            `Latitude: ${lat}, Longitude: ${lon}, Accuracy: ${accuracy} metres`;
+        },
+        error => {
+          document.getElementById("result").textContent =
+            `Location was not provided: ${error.message}`;
+        }
+      );
+    }
+  </script>
+</body>
+</html>
